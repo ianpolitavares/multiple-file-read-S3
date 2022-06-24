@@ -41,5 +41,3 @@ Run functions locally and invoke them with the `sam local invoke` command.
 ```bash
 sam-app$ sam local invoke HelloWorldFunction --event events/event.json
 ```
-
-The SAM CLI reads the application template to determine the API's routes and the functions that they invoke. The `Events` property on each function's definition includes the route and method for each path.
