@@ -4,11 +4,12 @@
             "type": "aws-sam",
             "request": "direct-invoke",
             "invokeTarget": {
-                "target": "template",
-                "logicalId": "HelloWorldFunction",
-                "templatePath": "${workspaceFolder}/template.yaml"
+                "target": "code",
+                "lambdaHandler": "app.lambda_handler",
+                "projectRoot": "${workspaceFolder}/app"
             },
             "lambda": {
+                "runtime": "python3.9",
                 "payload": {
                     "json": {
                         "Records": [
@@ -57,7 +58,36 @@
             "api": {
                 "httpMethod": "get"
             },
-            "name": "sam-app:HelloWorldFunction"
+            "name": "event"
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "multiple-file-read-S3:HelloWorldFunction",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/template.yaml",
+                "logicalId": "HelloWorldFunction"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "app:app.lambda_handler (python3.9)",
+            "invokeTarget": {
+                "target": "code",
+                "projectRoot": "${workspaceFolder}/app",
+                "lambdaHandler": "app.lambda_handler"
+            },
+            "lambda": {
+                "runtime": "python3.9",
+                "payload": {},
+                "environmentVariables": {}
+            }
         }
     ]
 }

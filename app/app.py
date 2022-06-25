@@ -10,14 +10,14 @@ def lambda_handler(event, context):
     
     # declaração das variaveis
     bucket = event["Records"][0]["s3"]["bucket"]["name"]
-    # object_name = event["Records"][0]["s3"]["object"]["key"]
+    object_name = event["Records"][0]["s3"]["object"]["key"]
     my_file_to_upload = "/tmp/my_file_to_upload.json"
 
     bucket_s3 = s3.Bucket(bucket)
     my_data = []
 
 
-    for object_summary in bucket_s3.objects.filter(Prefix="origem/"):
+    for object_summary in bucket_s3.objects.filter(Prefix=object_name):
         file_content = object_summary.get()['Body'].read().decode('utf-8')
         if file_content != '':
             json_content = json.loads(file_content)
